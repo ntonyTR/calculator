@@ -1,0 +1,58 @@
+body {
+    text-align: center;
+}
+header {
+    /* border: 2px solid red; */
+    margin: 10px auto;
+}
+
+#main_content {
+
+    margin: 10px auto;
+    height: 450px;
+    padding: 10px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+footer{
+    /* border: 2px solid red; */
+    margin: 10px auto;
+}
+
+#calculator {
+    border: 2px solid black;
+    width: 400px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+#calculator_display {
+    border: 2px solid rgb(0, 0, 0);
+    width: 380px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#calculator_buttons {
+    /* border: 2px solid green; */
+    height: 300px;
+    width: 380px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 5px;
+}
+
+button:hover {
+    cursor: pointer;
+}
+/* TODO: Simplificar los estilos */
