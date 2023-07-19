@@ -52,6 +52,11 @@ footer{
     grid-gap: 5px;
 }
 
+#last_button {
+    grid-column: span 2;
+}
+
+
 button:hover {
     cursor: pointer;
 }
