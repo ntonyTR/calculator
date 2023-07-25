@@ -1,14 +1,16 @@
-const operaciones = {
+const operations = {
   "+": (a, b) => a + b,
   "-": (a, b) => a - b,
-  "*": (a, b) => a * b,
+  "x": (a, b) => a * b,
   "/": (a, b) => a / b,
 };
 
 const num_btns = document.querySelectorAll(".numeric_buttons");
 const display = document.getElementById("calculator_display");
+const op_btns = document.querySelectorAll(".operator_buttons");
 let firstValue = 0;
 let secondValue = 0;
+let op = "";
 
 function getFirstValue() {
   num_btns.forEach((button) => {
@@ -30,14 +32,13 @@ function updateDisplay(value, element) {
   element.textContent = value;
 }
 
-function recibirOperador() {
-  let op;
-  let operadores = Object.keys(operaciones);
-  while (!operadores.includes(op)) {
-    op = "+";
-  }
-  console.log(`operador: ${op}`);
-  return op;
+function getOperator() {
+  op_btns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      op = btn.textContent;
+      console.log(op); // test
+    });
+  });
 }
 
 function recibirSegundoValor() {
@@ -51,8 +52,8 @@ function recibirSegundoValor() {
 
 function ejecutarOperacion(op, a, b) {
   console.log(`operacion: ${a} ${op} ${b}`);
-  console.log(`resultado: ${operaciones[op](a, b)}`);
-  return operaciones[op](a, b);
+  console.log(`resultado: ${operations[op](a, b)}`);
+  return operations[op](a, b);
 }
 
 function reiniciar() {
@@ -77,4 +78,6 @@ function continuar(resultado) {
   }
 }
 
-getFirstValue()
+getFirstValue();
+getOperator();
+let b = recibirSegundoValor();
