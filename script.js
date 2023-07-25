@@ -8,15 +8,17 @@ const operations = {
 const num_btns = document.querySelectorAll(".numeric_buttons");
 const display = document.getElementById("calculator_display");
 const op_btns = document.querySelectorAll(".operator_buttons");
+const equal_btn = document.getElementById("equal_button");
 let firstValue = 0;
-let secondValue = 0;
+let secondValue = 1;
 let op = "";
+let result = 0;
 
 function getFirstValue() {
   num_btns.forEach((button) => {
     button.addEventListener("click", () => {
       firstValue = updateFirstValue(firstValue, button);
-      updateDisplay(firstValue, display);
+      updateDisplay(firstValue);
       console.log(firstValue); // test
     });
   });
@@ -28,8 +30,8 @@ function updateFirstValue(value, element) {
   return value;
 }
 
-function updateDisplay(value, element) {
-  element.textContent = value;
+function updateDisplay(value) {
+  display.textContent = value;
 }
 
 function getOperator() {
@@ -37,6 +39,7 @@ function getOperator() {
     btn.addEventListener("click", () => {
       op = btn.textContent;
       console.log(op); // test
+      updateDisplay(op)
     });
   });
 }
@@ -50,10 +53,13 @@ function recibirSegundoValor() {
   return b;
 }
 
-function ejecutarOperacion(op, a, b) {
-  console.log(`operacion: ${a} ${op} ${b}`);
-  console.log(`resultado: ${operations[op](a, b)}`);
-  return operations[op](a, b);
+function makeOperation(){
+  equal_btn.addEventListener("click", () =>{
+    console.log(`operacion: ${firstValue} ${op} ${secondValue}`);
+    console.log(`resultado: ${operations[op](firstValue, secondValue)}`);
+    result = operations[op](firstValue, secondValue);
+    updateDisplay(result);
+  })
 }
 
 function reiniciar() {
@@ -80,4 +86,4 @@ function continuar(resultado) {
 
 getFirstValue();
 getOperator();
-let b = recibirSegundoValor();
+makeOperation()

@@ -52,7 +52,7 @@ footer{
     grid-gap: 5px;
 }
 
-#last_button {
+#equal_button {
     grid-column: span 2;
 }
 
