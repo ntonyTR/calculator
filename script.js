@@ -5,20 +5,36 @@ const operaciones = {
   "/": (a, b) => a / b,
 };
 
-function recibirPrimerValor() {
-  let a;
-  while(isNaN(a)) {
-    a = 2 //+prompt("Ingresa un valor numerico: ");
-  }
-  console.log(`Primer valor: ${a}`);
-  return a;
+const num_btns = document.querySelectorAll(".numeric_buttons");
+const display = document.getElementById("calculator_display");
+let firstValue = 0;
+let secondValue = 0;
+
+function getFirstValue() {
+  num_btns.forEach((button) => {
+    button.addEventListener("click", () => {
+      firstValue = updateFirstValue(firstValue, button);
+      updateDisplay(firstValue, display);
+      console.log(firstValue); // test
+    });
+  });
+}
+
+function updateFirstValue(value, element) {
+  value += element.textContent;
+  value = +value;
+  return value;
+}
+
+function updateDisplay(value, element) {
+  element.textContent = value;
 }
 
 function recibirOperador() {
   let op;
   let operadores = Object.keys(operaciones);
-  while(!operadores.includes(op)){
-  op = '+' //prompt("Ingresa un operador (+, -, *, /): ");
+  while (!operadores.includes(op)) {
+    op = "+";
   }
   console.log(`operador: ${op}`);
   return op;
@@ -26,8 +42,8 @@ function recibirOperador() {
 
 function recibirSegundoValor() {
   let b;
-  while(isNaN(b)){
-  b = 2 //+prompt("Ingresa un valor numerico: ");
+  while (isNaN(b)) {
+    b = 2;
   }
   console.log(`Segundo valor: ${b}`);
   return b;
@@ -48,40 +64,17 @@ function reiniciar() {
 }
 
 function continuar(resultado) {
-  let continuar = 'n' //prompt(`Resultado: ${resultado}\n Deseas continuar calculando?`);
-  if (continuar == 'y') {
-    console.log('si continuar')
+  let continuar = "n";
+  if (continuar == "y") {
+    console.log("si continuar");
     valor1 = resultado;
-    operador = recibirOperador()
+    operador = recibirOperador();
     valor2 = recibirSegundoValor();
     resultado = ejecutarOperacion(operador, valor1, valor2);
-    continuar()
-  } else if (continuar == 'n'){
-    console.log('no continuar');
+    continuar();
+  } else if (continuar == "n") {
+    console.log("no continuar");
   }
 }
 
-// let valor1 = recibirPrimerValor();
-// let operador = recibirOperador();
-// let valor2 = recibirSegundoValor();
-// let resultado = ejecutarOperacion(operador, valor1, valor2);
-// continuar(resultado)
-
-//TODO: MOSTRAR VALORES PRESIONADOS EN LA PANTALLA
-
-
-const number_buttons = document.querySelectorAll(".number_button")
-const display = document.getElementById('calculator_display')
-
-let value = '';
-let numericValue = 0;
-number_buttons.forEach(button => {
-  button.addEventListener('click', () => {
-    value += button.textContent;
-    numericValue = +value;
-    console.log(value);
-    display.textContent = value;
-  })
-});
-
-
+getFirstValue()
