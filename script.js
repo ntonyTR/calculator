@@ -1,39 +1,50 @@
-// TODO: Actualmente no funciona, debido a que al clickear en un boton de numero, se actualizan ambas variables (firstValue y secondValue) con el mismo valor, es necesario separar la declaracion de la primer variable de la segunda (tal vez tomando el segundo valor hasta que se presiona un operador?)
+//TODO: funcion para limpiar el display, reiniciar los valores y calcular de nuevo
+//TODO: hacer que se pueda seguir calculando con el resultado de la operacion, tomar este resultado como firstValue y obtener un nuevo secondValue
+//TODO: funcion para borrar un numero sin tener que reiniciar todo
+//TODO: funcion para sacar porcentaje
+//TODO: funcion para escribir punto decimal y alterar el valor como float
 
 const operations = {
   "+": (a, b) => a + b,
   "-": (a, b) => a - b,
-  x: (a, b) => a * b,
+  "x": (a, b) => a * b,
   "/": (a, b) => a / b,
 };
+
+const values = {
+  firstValue: 0,
+  secondValue: 0,
+}
+
+let op = "";
+let result = 0;
+let updateFirst = true;
 
 const num_btns = document.querySelectorAll(".numeric_buttons");
 const display = document.getElementById("calculator_display");
 const op_btns = document.querySelectorAll(".operator_buttons");
 const equal_btn = document.getElementById("equal_button");
-let firstValue = 0;
-let secondValue = 0;
-let op = "";
-let result = 0;
 
-function getFirstValue() {
-  num_btns.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      firstValue = updateValue(firstValue, btn);
-      updateDisplay(firstValue);
-      console.log(firstValue); // test
-    });
-  });
-}
 
-function getSecondValue() {
+function getValue(valueKey) {
   num_btns.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      secondValue = updateValue(secondValue, btn);
-      updateDisplay(secondValue);
-      console.log(secondValue);
-    });
-  });
+    // btn.addEventListener('click', () => {
+    //   values[valueKey] = updateValue(values[valueKey], btn);
+    //   updateDisplay(values[valueKey]);
+    //   console.log(values[valueKey]); // test
+    // })
+    btn.addEventListener('click', () => {
+      if(updateFirst){
+        values[valueKey] = updateValue(values[valueKey], btn);
+        updateDisplay(values[valueKey]);
+        console.log(values[valueKey]);
+      } else {
+        values['secondValue'] = updateValue(values['secondValue'], btn)
+        updateDisplay(values['secondValue'])
+        console.log(values['secondValue']);
+      }
+    })
+  })
 }
 
 function updateValue(value, element) {
@@ -52,22 +63,24 @@ function getOperator() {
       op = btn.textContent;
       console.log(op); // test
       updateDisplay(op);
+      // getValue('secondValue')
+      updateFirst = false;
     });
   });
 }
 
 function makeOperation() {
   equal_btn.addEventListener("click", () => {
-    console.log(`operacion: ${firstValue} ${op} ${secondValue}`);
-    console.log(`resultado: ${operations[op](firstValue, secondValue)}`);
-    result = operations[op](firstValue, secondValue);
+    console.log(`operacion: ${values['firstValue']} ${op} ${values['secondValue']}`); // test
+    console.log(`resultado: ${operations[op](values['firstValue'], values['secondValue'])}`); // test
+    result = operations[op](values['firstValue'], values['secondValue']);
     updateDisplay(result);
   });
 }
 
-getFirstValue();
+
+getValue('firstValue')
 getOperator();
-getSecondValue();
 makeOperation();
 
 // function reiniciar() {
