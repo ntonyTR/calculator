@@ -1,5 +1,5 @@
 //TODO: funcion para limpiar el display, reiniciar los valores y calcular de nuevo
-//TODO: hacer que se pueda seguir calculando con el resultado de la operacion, tomar este resultado como firstValue y obtener un nuevo secondValue
+//TODO: hacer que se pueda seguir calculando con el resultado de la operacion, tomar este resultado como a y obtener un nuevo b
 //TODO: funcion para borrar un numero sin tener que reiniciar todo
 //TODO: funcion para sacar porcentaje
 //TODO: funcion para escribir punto decimal y alterar el valor como float
@@ -12,9 +12,11 @@ const OPERATIONS = {
 };
 
 const VALUES = {
-  firstValue: 0,
-  secondValue: 0,
+  a: 0,
+  b: 0,
 }
+const FIRST_OPERAND = 'a';
+const SECOND_OPERAND = 'b';
 
 let op = "";
 let result = 0;
@@ -25,17 +27,12 @@ const DISPLAY = document.getElementById("calculator_display");
 const OP_BTNS = document.querySelectorAll(".operator_buttons");
 const EQUAL_BTN = document.getElementById("equal_button");
 
-
-function getValue(valueKey) {
+function getValue() {
   NUM_BTNS.forEach((btn) => {
     btn.addEventListener('click', () => {
-      if(updateFirst){
-        VALUES[valueKey] = updateValue(VALUES[valueKey], btn);
-        updateDisplay(VALUES[valueKey]);
-      } else {
-        VALUES['secondValue'] = updateValue(VALUES['secondValue'], btn)
-        updateDisplay(VALUES['secondValue'])
-      }
+      let currentOperand = updateFirst ? FIRST_OPERAND : SECOND_OPERAND;
+      VALUES[currentOperand] = updateValue(VALUES[currentOperand], btn);
+      updateDisplay(VALUES[currentOperand]);
     })
   })
 }
@@ -62,13 +59,14 @@ function getOperator() {
 
 function makeOperation() {
   EQUAL_BTN.addEventListener("click", () => {
-    result = OPERATIONS[op](VALUES['firstValue'], VALUES['secondValue']);
+    let a = VALUES[FIRST_OPERAND];
+    let b = VALUES[SECOND_OPERAND];
+    result = OPERATIONS[op](a, b);
     updateDisplay(result);
   });
 }
 
-
-getValue('firstValue')
+getValue();
 getOperator();
 makeOperation();
 
