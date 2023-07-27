@@ -4,14 +4,14 @@
 //TODO: funcion para sacar porcentaje
 //TODO: funcion para escribir punto decimal y alterar el valor como float
 
-const operations = {
+const OPERATIONS = {
   "+": (a, b) => a + b,
   "-": (a, b) => a - b,
   "x": (a, b) => a * b,
   "/": (a, b) => a / b,
 };
 
-const values = {
+const VALUES = {
   firstValue: 0,
   secondValue: 0,
 }
@@ -20,28 +20,21 @@ let op = "";
 let result = 0;
 let updateFirst = true;
 
-const num_btns = document.querySelectorAll(".numeric_buttons");
-const display = document.getElementById("calculator_display");
-const op_btns = document.querySelectorAll(".operator_buttons");
-const equal_btn = document.getElementById("equal_button");
+const NUM_BTNS = document.querySelectorAll(".numeric_buttons");
+const DISPLAY = document.getElementById("calculator_display");
+const OP_BTNS = document.querySelectorAll(".operator_buttons");
+const EQUAL_BTN = document.getElementById("equal_button");
 
 
 function getValue(valueKey) {
-  num_btns.forEach((btn) => {
-    // btn.addEventListener('click', () => {
-    //   values[valueKey] = updateValue(values[valueKey], btn);
-    //   updateDisplay(values[valueKey]);
-    //   console.log(values[valueKey]); // test
-    // })
+  NUM_BTNS.forEach((btn) => {
     btn.addEventListener('click', () => {
       if(updateFirst){
-        values[valueKey] = updateValue(values[valueKey], btn);
-        updateDisplay(values[valueKey]);
-        console.log(values[valueKey]);
+        VALUES[valueKey] = updateValue(VALUES[valueKey], btn);
+        updateDisplay(VALUES[valueKey]);
       } else {
-        values['secondValue'] = updateValue(values['secondValue'], btn)
-        updateDisplay(values['secondValue'])
-        console.log(values['secondValue']);
+        VALUES['secondValue'] = updateValue(VALUES['secondValue'], btn)
+        updateDisplay(VALUES['secondValue'])
       }
     })
   })
@@ -54,26 +47,22 @@ function updateValue(value, element) {
 }
 
 function updateDisplay(value) {
-  display.textContent = value;
+  DISPLAY.textContent = value;
 }
 
 function getOperator() {
-  op_btns.forEach((btn) => {
+  OP_BTNS.forEach((btn) => {
     btn.addEventListener("click", () => {
       op = btn.textContent;
-      console.log(op); // test
       updateDisplay(op);
-      // getValue('secondValue')
       updateFirst = false;
     });
   });
 }
 
 function makeOperation() {
-  equal_btn.addEventListener("click", () => {
-    console.log(`operacion: ${values['firstValue']} ${op} ${values['secondValue']}`); // test
-    console.log(`resultado: ${operations[op](values['firstValue'], values['secondValue'])}`); // test
-    result = operations[op](values['firstValue'], values['secondValue']);
+  EQUAL_BTN.addEventListener("click", () => {
+    result = OPERATIONS[op](VALUES['firstValue'], VALUES['secondValue']);
     updateDisplay(result);
   });
 }
@@ -104,3 +93,4 @@ makeOperation();
 //     console.log("no continuar");
 //   }
 // }
+
