@@ -1,5 +1,6 @@
 body {
     text-align: center;
+    background-color: darkolivegreen;
 }
 header {
     /* border: 2px solid red; */
@@ -52,10 +53,9 @@ footer{
     grid-gap: 5px;
 }
 
-#equal_button {
+#reset_button, #equal_button {
     grid-column: span 2;
 }
-
 
 button:hover {
     cursor: pointer;

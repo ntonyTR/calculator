@@ -1,5 +1,3 @@
-//TODO: funcion para sacar porcentaje
-//TODO: funcion para borrar un numero sin tener que reiniciar todo
 //TODO: funcion para escribir punto decimal y alterar el valor como float
 //TODO: hacer que se pueda seguir calculando con el resultado de la operacion, tomar este resultado como a y obtener un nuevo b
 //TODO: aceptar un numero negativo como primer valor (empezar con '-')
@@ -29,8 +27,16 @@ const DISPLAY = document.getElementById("calculator_display");
 const OP_BTNS = document.querySelectorAll(".operator_buttons");
 const EQUAL_BTN = document.getElementById("equal_button");
 const RESET_BUTTON = document.getElementById("reset_button");
+const DELETE_BTN = document.getElementById("delete_button");
 
 RESET_BUTTON.addEventListener("click", reset);
+DELETE_BTN.addEventListener("click", deleteDigit);
+
+function deleteDigit() {
+  let current = updateFirst ? FIRST_OPERAND : SECOND_OPERAND;
+  VALUES[current] = +VALUES[current].toString().slice(0, -1);
+  updateDisplay(VALUES[current]);
+};
 
 function reset() {
   for (let value in VALUES) {
