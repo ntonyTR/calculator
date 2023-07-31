@@ -1,5 +1,3 @@
-//TODO: funcion para escribir punto decimal y alterar el valor como float
-//TODO: hacer que se pueda seguir calculando con el resultado de la operacion, tomar este resultado como a y obtener un nuevo b
 //TODO: aceptar un numero negativo como primer valor (empezar con '-')
 //TODO: aceptar mas de dos operandos y mas de un operador sin necesidad de clickear '='
 
@@ -26,11 +24,26 @@ const NUM_BTNS = document.querySelectorAll(".numeric_buttons");
 const DISPLAY = document.getElementById("calculator_display");
 const OP_BTNS = document.querySelectorAll(".operator_buttons");
 const EQUAL_BTN = document.getElementById("equal_button");
-const RESET_BUTTON = document.getElementById("reset_button");
+const RESET_BTN = document.getElementById("reset_button");
 const DELETE_BTN = document.getElementById("delete_button");
 
-RESET_BUTTON.addEventListener("click", reset);
+RESET_BTN.addEventListener("click", reset);
 DELETE_BTN.addEventListener("click", deleteDigit);
+
+const DECIMAL_BTN = document.getElementById("decimal_button");
+
+DECIMAL_BTN.addEventListener("click", addDecimal)
+
+let decimalAdded = false;
+
+function addDecimal() {
+  let current = updateFirst ? FIRST_OPERAND : SECOND_OPERAND;
+  if (!decimalAdded) {
+    VALUES[current] += "."
+    decimalAdded = true;
+  }
+  updateDisplay(VALUES[current])
+}
 
 function deleteDigit() {
   let current = updateFirst ? FIRST_OPERAND : SECOND_OPERAND;
@@ -74,6 +87,7 @@ function getOperator() {
       op = btn.textContent;
       updateDisplay(op);
       updateFirst = false;
+      decimalAdded = false;
     });
   });
 }
@@ -84,7 +98,16 @@ function makeOperation() {
     let b = VALUES[SECOND_OPERAND];
     result = OPERATIONS[op](a, b);
     updateDisplay(result);
+    continueCalc();
   });
+}
+
+function continueCalc() {
+  VALUES[FIRST_OPERAND] = result;
+  VALUES[SECOND_OPERAND] = 0;
+  result = 0;
+  updateFirst = true;
+  decimalAdded = false;
 }
 
 getValue();
