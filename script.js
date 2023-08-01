@@ -19,6 +19,7 @@ const SECOND_OPERAND = "b";
 let op = "";
 let result = 0;
 let updateFirst = true;
+let decimalAdded = false;
 
 const NUM_BTNS = document.querySelectorAll(".numeric_buttons");
 const DISPLAY = document.getElementById("calculator_display");
@@ -26,15 +27,11 @@ const OP_BTNS = document.querySelectorAll(".operator_buttons");
 const EQUAL_BTN = document.getElementById("equal_button");
 const RESET_BTN = document.getElementById("reset_button");
 const DELETE_BTN = document.getElementById("delete_button");
+const DECIMAL_BTN = document.getElementById("decimal_button");
 
 RESET_BTN.addEventListener("click", reset);
 DELETE_BTN.addEventListener("click", deleteDigit);
-
-const DECIMAL_BTN = document.getElementById("decimal_button");
-
 DECIMAL_BTN.addEventListener("click", addDecimal)
-
-let decimalAdded = false;
 
 function addDecimal() {
   let current = updateFirst ? FIRST_OPERAND : SECOND_OPERAND;
@@ -113,17 +110,3 @@ function continueCalc() {
 getValue();
 getOperator();
 makeOperation();
-
-// function continuar(resultado) {
-//   let continuar = "n";
-//   if (continuar == "y") {
-//     console.log("si continuar");
-//     valor1 = resultado;
-//     operador = recibirOperador();
-//     valor2 = recibirSegundoValor();
-//     resultado = ejecutarOperacion(operador, valor1, valor2);
-//     continuar();
-//   } else if (continuar == "n") {
-//     console.log("no continuar");
-//   }
-// }
