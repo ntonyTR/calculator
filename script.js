@@ -1,6 +1,6 @@
+//TODO: despues de introducir el primer operador, los demas tambien mostraran el resultado de la operacion
+//TODO: actualizar display al introducir operador, mostrar "2 +" en lugar de solo "+", al clickear "=", mostrar la operacion completa -> "2 + 2 = 4"
 //TODO: aceptar un numero negativo como primer valor (empezar con '-')
-//TODO: aceptar mas de dos operandos y mas de un operador sin necesidad de clickear '='
-
 const OPERATIONS = {
   "+": (a, b) => a + b,
   "-": (a, b) => a - b,
@@ -31,22 +31,31 @@ const DECIMAL_BTN = document.getElementById("decimal_button");
 
 RESET_BTN.addEventListener("click", reset);
 DELETE_BTN.addEventListener("click", deleteDigit);
-DECIMAL_BTN.addEventListener("click", addDecimal)
+DECIMAL_BTN.addEventListener("click", addDecimal);
+
+getValue();
+getOperator();
+makeOperation();
+updateDisplay(VALUES[FIRST_OPERAND]);
+
+function getCurrentOperand() {
+  return updateFirst ? FIRST_OPERAND : SECOND_OPERAND;
+}
 
 function addDecimal() {
-  let current = updateFirst ? FIRST_OPERAND : SECOND_OPERAND;
+  let current = getCurrentOperand();
   if (!decimalAdded) {
-    VALUES[current] += "."
+    VALUES[current] += ".";
     decimalAdded = true;
   }
-  updateDisplay(VALUES[current])
+  updateDisplay(VALUES[current]);
 }
 
 function deleteDigit() {
-  let current = updateFirst ? FIRST_OPERAND : SECOND_OPERAND;
+  let current = getCurrentOperand();
   VALUES[current] = +VALUES[current].toString().slice(0, -1);
   updateDisplay(VALUES[current]);
-};
+}
 
 function reset() {
   for (let value in VALUES) {
@@ -55,23 +64,21 @@ function reset() {
   result = 0;
   op = "";
   updateFirst = true;
+  decimalAdded = false;
   updateDisplay("");
 }
 
 function getValue() {
   NUM_BTNS.forEach((btn) => {
     btn.addEventListener("click", () => {
-      let currentOperand = updateFirst ? FIRST_OPERAND : SECOND_OPERAND;
-      VALUES[currentOperand] = updateValue(VALUES[currentOperand], btn);
-      updateDisplay(VALUES[currentOperand]);
+      let current = getCurrentOperand();
+
+      VALUES[current] += btn.textContent;
+      VALUES[current] = +VALUES[current];
+
+      updateDisplay(VALUES[current]);
     });
   });
-}
-
-function updateValue(value, element) {
-  value += element.textContent;
-  value = +value;
-  return value;
 }
 
 function updateDisplay(value) {
@@ -106,7 +113,3 @@ function continueCalc() {
   updateFirst = true;
   decimalAdded = false;
 }
-
-getValue();
-getOperator();
-makeOperation();
