@@ -16,12 +16,10 @@ const VALUES = {
 const FIRST_OPERAND = "a";
 const SECOND_OPERAND = "b";
 
-let op = "";
+let op = undefined;
 let result = 0;
 let updateFirst = true;
 let decimalAdded = false;
-
-
 
 const DISPLAY_PREV = document.getElementById("display_previous");
 const DISPLAY_CURR = document.getElementById("display_current")
@@ -40,10 +38,11 @@ const DECIMAL_BTN = document.getElementById("decimal_button");
 RESET_BTN.addEventListener("click", reset);
 DELETE_BTN.addEventListener("click", deleteDigit);
 DECIMAL_BTN.addEventListener("click", addDecimal);
+EQUAL_BTN.addEventListener("click", compute)
 
 getValue();
 getOperator();
-makeOperation();
+compute();
 updateDisplay(DISPLAY_CURR, VALUES[FIRST_OPERAND]);
 
 function getCurrentOperand() {
@@ -93,26 +92,26 @@ function getOperator() {
   OP_BTNS.forEach((btn) => {
     btn.addEventListener("click", () => {
       op = btn.textContent;
-      let str = `${VALUES[FIRST_OPERAND]} ${op}`
-      updateDisplay(DISPLAY_PREV, str);
-      updateDisplay(DISPLAY_CURR, "")
+      let operationStr = `${VALUES[FIRST_OPERAND]} ${op}`
+      updateDisplay(DISPLAY_PREV, operationStr);
+      updateDisplay(DISPLAY_CURR, 0);
       updateFirst = false;
       decimalAdded = false;
+
     });
   });
 }
 
-function makeOperation() {
-  EQUAL_BTN.addEventListener("click", () => {
-    let a = VALUES[FIRST_OPERAND];
-    let b = VALUES[SECOND_OPERAND];
-    result = OPERATIONS[op](a, b);
-    let str = `${VALUES[FIRST_OPERAND]} ${op} ${VALUES[SECOND_OPERAND]}`
-    let str2 = `= ${result}`
-    updateDisplay(DISPLAY_PREV, str);
-    updateDisplay(DISPLAY_CURR, str2)
-    continueCalc();
-  });
+function compute() {
+  if (op == undefined) return;
+  let a = VALUES[FIRST_OPERAND];
+  let b = VALUES[SECOND_OPERAND];
+  result = OPERATIONS[op](a, b);
+  let completeStr = `${VALUES[FIRST_OPERAND]} ${op} ${VALUES[SECOND_OPERAND]}`
+  let resultStr = `= ${result}`
+  updateDisplay(DISPLAY_PREV, completeStr);
+  updateDisplay(DISPLAY_CURR, resultStr)
+  continueCalc();
 }
 
 function continueCalc() {
