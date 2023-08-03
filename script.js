@@ -33,7 +33,8 @@ const DECIMAL_BTN = document.getElementById("decimal_button");
 RESET_BTN.addEventListener("click", reset);
 DELETE_BTN.addEventListener("click", deleteDigit);
 DECIMAL_BTN.addEventListener("click", addDecimal);
-EQUAL_BTN.addEventListener("click", compute)
+EQUAL_BTN.addEventListener("click", compute);
+
 NUM_BTNS.forEach((btn) => {
   btn.addEventListener("click", () => {
     let current = getCurrentOperand();
@@ -42,7 +43,15 @@ NUM_BTNS.forEach((btn) => {
   })
 })
 
-getOperator();
+OP_BTNS.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    getOperator(btn);
+    let operationStr = `${VALUES[FIRST_OPERAND]} ${op}`;
+    updateDisplay(DISPLAY_PREV, operationStr);
+    updateDisplay(DISPLAY_CURR, 0)
+  })
+})
+
 updateDisplay(DISPLAY_CURR, 0);
 
 function updateDisplay(element, value) {
@@ -76,7 +85,7 @@ function reset() {
   op = "";
   updateFirst = true;
   decimalAdded = false;
-  updateDisplay(DISPLAY_CURR, "");
+  updateDisplay(DISPLAY_CURR, result);
 }
 
 function getValue(ele, value){
@@ -84,18 +93,10 @@ function getValue(ele, value){
   VALUES[value] = +VALUES[value];
 }
 
-function getOperator() {
-  OP_BTNS.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      op = btn.textContent;
-      let operationStr = `${VALUES[FIRST_OPERAND]} ${op}`
-      updateDisplay(DISPLAY_PREV, operationStr);
-      updateDisplay(DISPLAY_CURR, 0);
-      updateFirst = false;
-      decimalAdded = false;
-
-    });
-  });
+function getOperator(ele) {
+  op = ele.textContent;
+  updateFirst = false;
+  decimalAdded = false;
 }
 
 function compute() {
@@ -103,7 +104,7 @@ function compute() {
   let a = VALUES[FIRST_OPERAND];
   let b = VALUES[SECOND_OPERAND];
   result = OPERATIONS[op](a, b);
-  let completeStr = `${VALUES[FIRST_OPERAND]} ${op} ${VALUES[SECOND_OPERAND]}`
+  let completeStr = `${a} ${op} ${b}`
   let resultStr = `= ${result}`
   updateDisplay(DISPLAY_PREV, completeStr);
   updateDisplay(DISPLAY_CURR, resultStr)
