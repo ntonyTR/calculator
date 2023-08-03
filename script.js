@@ -23,11 +23,6 @@ let decimalAdded = false;
 
 const DISPLAY_PREV = document.getElementById("display_previous");
 const DISPLAY_CURR = document.getElementById("display_current")
-
-function updateDisplay(element, value) {
-  element.textContent = value;
-}
-
 const NUM_BTNS = document.querySelectorAll(".numeric_buttons");
 const OP_BTNS = document.querySelectorAll(".operator_buttons");
 const EQUAL_BTN = document.getElementById("equal_button");
@@ -39,11 +34,20 @@ RESET_BTN.addEventListener("click", reset);
 DELETE_BTN.addEventListener("click", deleteDigit);
 DECIMAL_BTN.addEventListener("click", addDecimal);
 EQUAL_BTN.addEventListener("click", compute)
+NUM_BTNS.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    let current = getCurrentOperand();
+    getValue(btn, current);
+    updateDisplay(DISPLAY_CURR, VALUES[current]);
+  })
+})
 
-getValue();
 getOperator();
-compute();
-updateDisplay(DISPLAY_CURR, VALUES[FIRST_OPERAND]);
+updateDisplay(DISPLAY_CURR, 0);
+
+function updateDisplay(element, value) {
+  element.textContent = value;
+}
 
 function getCurrentOperand() {
   return updateFirst ? FIRST_OPERAND : SECOND_OPERAND;
@@ -75,17 +79,9 @@ function reset() {
   updateDisplay(DISPLAY_CURR, "");
 }
 
-function getValue() {
-  NUM_BTNS.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      let current = getCurrentOperand();
-
-      VALUES[current] += btn.textContent;
-      VALUES[current] = +VALUES[current];
-
-      updateDisplay(DISPLAY_CURR, VALUES[current]);
-    });
-  });
+function getValue(ele, value){
+  VALUES[value] += ele.textContent;
+  VALUES[value] = +VALUES[value];
 }
 
 function getOperator() {
