@@ -21,8 +21,16 @@ let result = 0;
 let updateFirst = true;
 let decimalAdded = false;
 
+
+
+const DISPLAY_PREV = document.getElementById("display_previous");
+const DISPLAY_CURR = document.getElementById("display_current")
+
+function updateDisplay(element, value) {
+  element.textContent = value;
+}
+
 const NUM_BTNS = document.querySelectorAll(".numeric_buttons");
-const DISPLAY = document.getElementById("calculator_display");
 const OP_BTNS = document.querySelectorAll(".operator_buttons");
 const EQUAL_BTN = document.getElementById("equal_button");
 const RESET_BTN = document.getElementById("reset_button");
@@ -36,7 +44,7 @@ DECIMAL_BTN.addEventListener("click", addDecimal);
 getValue();
 getOperator();
 makeOperation();
-updateDisplay(VALUES[FIRST_OPERAND]);
+updateDisplay(DISPLAY_CURR, VALUES[FIRST_OPERAND]);
 
 function getCurrentOperand() {
   return updateFirst ? FIRST_OPERAND : SECOND_OPERAND;
@@ -48,13 +56,13 @@ function addDecimal() {
     VALUES[current] += ".";
     decimalAdded = true;
   }
-  updateDisplay(VALUES[current]);
+  updateDisplay(DISPLAY_CURR, VALUES[current]);
 }
 
 function deleteDigit() {
   let current = getCurrentOperand();
   VALUES[current] = +VALUES[current].toString().slice(0, -1);
-  updateDisplay(VALUES[current]);
+  updateDisplay(DISPLAY_CURR, VALUES[current]);
 }
 
 function reset() {
@@ -65,7 +73,7 @@ function reset() {
   op = "";
   updateFirst = true;
   decimalAdded = false;
-  updateDisplay("");
+  updateDisplay(DISPLAY_CURR, "");
 }
 
 function getValue() {
@@ -76,20 +84,18 @@ function getValue() {
       VALUES[current] += btn.textContent;
       VALUES[current] = +VALUES[current];
 
-      updateDisplay(VALUES[current]);
+      updateDisplay(DISPLAY_CURR, VALUES[current]);
     });
   });
-}
-
-function updateDisplay(value) {
-  DISPLAY.textContent = value;
 }
 
 function getOperator() {
   OP_BTNS.forEach((btn) => {
     btn.addEventListener("click", () => {
       op = btn.textContent;
-      updateDisplay(op);
+      let str = `${VALUES[FIRST_OPERAND]} ${op}`
+      updateDisplay(DISPLAY_PREV, str);
+      updateDisplay(DISPLAY_CURR, "")
       updateFirst = false;
       decimalAdded = false;
     });
@@ -101,7 +107,10 @@ function makeOperation() {
     let a = VALUES[FIRST_OPERAND];
     let b = VALUES[SECOND_OPERAND];
     result = OPERATIONS[op](a, b);
-    updateDisplay(result);
+    let str = `${VALUES[FIRST_OPERAND]} ${op} ${VALUES[SECOND_OPERAND]}`
+    let str2 = `= ${result}`
+    updateDisplay(DISPLAY_PREV, str);
+    updateDisplay(DISPLAY_CURR, str2)
     continueCalc();
   });
 }
