@@ -1,6 +1,6 @@
 body {
     text-align: center;
-    background-color: darkolivegreen;
+    background-image: radial-gradient(circle, #79ffe0, #131457)
 }
 header {
     /* border: 2px solid red; */
@@ -32,6 +32,7 @@ footer{
     justify-content: center;
     align-items: center;
     gap: 20px;
+    background-color: white;
 }
 
 #display_previous, #display_current {
@@ -57,6 +58,9 @@ footer{
     grid-column: span 2;
 }
 
+#negative_button {
+    grid-column: span 4;
+}
 button:hover {
     cursor: pointer;
 }

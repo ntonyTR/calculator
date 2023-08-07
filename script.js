@@ -1,6 +1,4 @@
 //TODO: despues de introducir el primer operador, los demas tambien mostraran el resultado de la operacion
-//TODO: actualizar display al introducir operador, mostrar "2 +" en lugar de solo "+", al clickear "=", mostrar la operacion completa -> "2 + 2 = 4"
-//TODO: aceptar un numero negativo como primer valor (empezar con '-')
 const OPERATIONS = {
   "+": (a, b) => a + b,
   "-": (a, b) => a - b,
@@ -10,7 +8,7 @@ const OPERATIONS = {
 
 const VALUES = {
   a: 0,
-  b: 0,
+  b: "",
 };
 
 const FIRST_OPERAND = "a";
@@ -21,19 +19,21 @@ let result = 0;
 let updateFirst = true;
 let decimalAdded = false;
 
-const DISPLAY_PREV = document.getElementById("display_previous");
-const DISPLAY_CURR = document.getElementById("display_current")
 const NUM_BTNS = document.querySelectorAll(".numeric_buttons");
 const OP_BTNS = document.querySelectorAll(".operator_buttons");
+const DISPLAY_PREV = document.getElementById("display_previous");
+const DISPLAY_CURR = document.getElementById("display_current")
 const EQUAL_BTN = document.getElementById("equal_button");
 const RESET_BTN = document.getElementById("reset_button");
 const DELETE_BTN = document.getElementById("delete_button");
 const DECIMAL_BTN = document.getElementById("decimal_button");
+const NEGATIVE_BTN = document.getElementById("negative_button");
 
 RESET_BTN.addEventListener("click", reset);
 DELETE_BTN.addEventListener("click", deleteDigit);
 DECIMAL_BTN.addEventListener("click", addDecimal);
 EQUAL_BTN.addEventListener("click", compute);
+NEGATIVE_BTN.addEventListener("click", makeNegative);
 
 NUM_BTNS.forEach((btn) => {
   btn.addEventListener("click", () => {
@@ -71,6 +71,12 @@ function addDecimal() {
   updateDisplay(DISPLAY_CURR, VALUES[current]);
 }
 
+function makeNegative(){
+  let current = getCurrentOperand();
+  VALUES[current] *= -1;
+  updateDisplay(DISPLAY_CURR, VALUES[current]);
+}
+
 function deleteDigit() {
   let current = getCurrentOperand();
   VALUES[current] = +VALUES[current].toString().slice(0, -1);
@@ -86,6 +92,7 @@ function reset() {
   updateFirst = true;
   decimalAdded = false;
   updateDisplay(DISPLAY_CURR, result);
+  updateDisplay(DISPLAY_PREV, "")
 }
 
 function getValue(ele, value){
@@ -97,17 +104,20 @@ function getOperator(ele) {
   op = ele.textContent;
   updateFirst = false;
   decimalAdded = false;
+  
+  // despues de recibir operador POR SEGUNDA VEZ, hacer lo mismo Y EJECUTAR OPERACION, SOLO LA SEGUNDA VEZ
 }
 
 function compute() {
-  if (op == undefined) return;
   let a = VALUES[FIRST_OPERAND];
   let b = VALUES[SECOND_OPERAND];
   result = OPERATIONS[op](a, b);
+
   let completeStr = `${a} ${op} ${b}`
   let resultStr = `= ${result}`
   updateDisplay(DISPLAY_PREV, completeStr);
   updateDisplay(DISPLAY_CURR, resultStr)
+
   continueCalc();
 }
 
