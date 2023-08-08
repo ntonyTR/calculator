@@ -53,7 +53,6 @@ OP_BTNS.forEach((btn) => {
     let operationStr = `${VALUES[FIRST_OPERAND]} ${op}`;
     updateDisplay(DISPLAY_PREV, operationStr);
     updateDisplay(DISPLAY_CURR, 0);
-    firstOperation = false;
   });
 });
 
@@ -78,9 +77,11 @@ function getOperator(ele) {
 }
 
 function compute() {
+  let a = parseFloat(VALUES[FIRST_OPERAND]);
+  let b = parseFloat(VALUES[SECOND_OPERAND]);
+  if (isNaN(a) || isNaN(b)) return;
+  
   if (op) {
-    let a = parseFloat(VALUES[FIRST_OPERAND]);
-    let b = parseFloat(VALUES[SECOND_OPERAND]);
     result = OPERATIONS[op](a, b);
     result = parseFloat(result.toFixed(5));
 
@@ -90,7 +91,6 @@ function compute() {
     updateDisplay(DISPLAY_CURR, resultStr);
 
     continueCalc();
-    firstOperation = true;
   }
 }
 
