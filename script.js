@@ -1,4 +1,4 @@
-//TODO: despues de introducir el primer operador, los demas tambien mostraran el resultado de la operacion
+// TODO: Al ingresar un '0' despues del '.', el 0 se borra, corregir esto para poder ingresar numeros como '12.020'
 const OPERATIONS = {
   "+": (a, b) => a + b,
   "-": (a, b) => a - b,
@@ -7,7 +7,7 @@ const OPERATIONS = {
 };
 
 const VALUES = {
-  a: 0,
+  a: "",
   b: "",
 };
 
@@ -45,10 +45,15 @@ NUM_BTNS.forEach((btn) => {
 
 OP_BTNS.forEach((btn) => {
   btn.addEventListener("click", () => {
-    getOperator(btn);
-    let operationStr = `${VALUES[FIRST_OPERAND]} ${op}`;
-    updateDisplay(DISPLAY_PREV, operationStr);
-    updateDisplay(DISPLAY_CURR, 0)
+    if(!updateFirst){
+      compute();
+    }
+
+      getOperator(btn);
+      let operationStr = `${VALUES[FIRST_OPERAND]} ${op}`;
+      updateDisplay(DISPLAY_PREV, operationStr);
+      updateDisplay(DISPLAY_CURR, 0)
+      firstOperation = false;
   })
 })
 
@@ -97,28 +102,30 @@ function reset() {
 
 function getValue(ele, value){
   VALUES[value] += ele.textContent;
-  VALUES[value] = +VALUES[value];
+  VALUES[value] = parseFloat(VALUES[value]);
 }
 
 function getOperator(ele) {
   op = ele.textContent;
   updateFirst = false;
   decimalAdded = false;
-  
-  // despues de recibir operador POR SEGUNDA VEZ, hacer lo mismo Y EJECUTAR OPERACION, SOLO LA SEGUNDA VEZ
 }
 
 function compute() {
-  let a = VALUES[FIRST_OPERAND];
-  let b = VALUES[SECOND_OPERAND];
-  result = OPERATIONS[op](a, b);
+  if(op){
+    let a = VALUES[FIRST_OPERAND];
+    let b = VALUES[SECOND_OPERAND];
+    result = OPERATIONS[op](a, b);
+    result = parseFloat(result.toFixed(5))
 
-  let completeStr = `${a} ${op} ${b}`
-  let resultStr = `= ${result}`
-  updateDisplay(DISPLAY_PREV, completeStr);
-  updateDisplay(DISPLAY_CURR, resultStr)
+    let completeStr = `${a} ${op} ${b}`
+    let resultStr = `= ${result}`
+    updateDisplay(DISPLAY_PREV, completeStr);
+    updateDisplay(DISPLAY_CURR, resultStr)
 
-  continueCalc();
+    continueCalc();
+    firstOperation = true;
+  }
 }
 
 function continueCalc() {
