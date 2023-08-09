@@ -1,4 +1,6 @@
-// TODO: al ingresar un operador despues de otro (para corregir), se muestra NaN en la pantalla
+// TODO: implementar funcion Main()
+// TODO: hacer variable updateFirst mas descriptiva
+// TODO: que al presionar '=' despues del primer calculo, se vuelva a hacer la misma operacion
 
 const OPERATIONS = {
   "+": (a, b) => a + b,
