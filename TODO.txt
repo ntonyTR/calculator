@@ -1,0 +1,7 @@
+TODO: implementar funcion Main()
+TODO: hacer variable updateFirst mas descriptiva
+TODO: que al presionar '=' despues del primer calculo, se vuelva a hacer la misma operacion
+TODO: corregir division por 0
+TODO: al escribir numero negativo y borrar los valores, muestra NaN
+TODO: se puede agregar un punto a result, incluso si este ya cuenta con un punto
+TODO: al presionar delete o +/- y despues agregar un valor, este inicia con 0
