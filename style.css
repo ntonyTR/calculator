@@ -7,20 +7,14 @@
     box-sizing: border-box;
     font-family: 'Catamaran', sans-serif;
     margin: 0;
+    padding: 0;
 }
 
 body {
+    height: 100vh;
     background-image: radial-gradient(circle, #97e8f3, #007265);
     text-align: center;
-    display: flex;
-    flex-direction: column;
     color: white;
-}
-
-header {
-    height: 10vh;
-    display: flex;
-    flex-direction: column;
 }
 
 h1{
@@ -28,71 +22,58 @@ h1{
     font-size: 50px;
     letter-spacing: 1rem;
     color: rgb(255, 247, 180);
-    padding-top: 16px;
 }
 
 #main_content {
-    height: 80vh;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+button, #display_previous, #display_current {
+    font-family: 'Varela Round', sans-serif;
 }
 
 #calculator {
     background-color: rgb(0, 0, 0);
+    box-shadow: 0px 0px 40px rgba(255, 255, 255, 0.75);
+    border-radius: 30px;
+    padding: 20px 16px;
+    margin-top: 30px;
+    gap: 8px;
+    display: grid;
+    grid-template-columns: repeat(4, 100px);
+    grid-template-rows: minmax(120px, auto) repeat(5, 100px);
+
+}
+
+#output {
+    grid-column: 1 / -1;
     display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 400px;
-    height: 460px;
-    padding: 20px 10px;
-    border-radius: 4%;
-    box-shadow: 0px 0px 40px rgba(255, 255, 255, 0.75) ;
+    word-wrap: break-word;
+    word-break: break-all;
+    padding: 0 10px;
 }
 
-button, .displays {
-    font-family: 'Varela Round', sans-serif;
-}
-
-.displays {
-    font-size: 5ch;
-    font-weight: 500;
+#display_previous {
+    font-size: 3ch;
+    font-weight: normal;
     height: 1em;
-    width: 90%;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
 }
 
-#second_display{
-    font-weight: 100;
-    font-size: 4ch;
-    width: 95%;
-    gap: 10px;
+#display_current{
+    font-weight: bolder;
+    font-size: 6ch;
 }
 
 button {
     border: none;
-    font-family: 'Varela Round', sans-serif;
-    border-radius: 12px;
-    font-size: 24px;
+    border-radius: 18px;
+    font-size: 36px;
     cursor: pointer;
-}
-
-#second_display button{
-    height: 65%;
-    border-radius: 8px;
-    font-size: 12px;
-}
-
-#calculator_buttons {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    height: 70%;
-    width: 95%;
-    gap: 8px;
-    margin-top: 30px;
 }
 
 .operator_buttons, 
@@ -122,17 +103,12 @@ button {
     background-color: rgb(236, 236, 236);
 }
 
-#reset_button {
-    grid-column: span 2;
-}
-
 #equal_button {
     grid-row: span 2;
 }
 
-
 footer{
-    height: 10vh;
+    margin-top: 40px;
 }
 
 h4 {

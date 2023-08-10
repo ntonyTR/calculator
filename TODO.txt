@@ -1,4 +1,3 @@
-TODO: implementar funcion Main()
 TODO: hacer variable updateFirst mas descriptiva
 TODO: que al presionar '=' despues del primer calculo, se vuelva a hacer la misma operacion
 TODO: corregir division por 0

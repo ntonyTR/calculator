@@ -84,14 +84,20 @@ function getOperator(element) {
 function compute() {
   let a = parseFloat(VALUES[FIRST_OPERAND]);
   let b = parseFloat(VALUES[SECOND_OPERAND]);
+  let completeStr = ""
+  let resultStr = ""
   if (isNaN(a) || isNaN(b)) return;
-  
+  if(op === "/" && b === 0) {
+    resultStr = "ERROR!"
+    updateDisplay(DISPLAY_CURR, resultStr)
+    return
+  };
   if (op) {
     result = OPERATIONS[op](a, b);
     result = parseFloat(result.toFixed(5));
 
-    let completeStr = `${a} ${op} ${b}`;
-    let resultStr = `= ${result}`;
+    completeStr = `${a} ${op} ${b}`;
+    resultStr = `= ${result}`;
     updateDisplay(DISPLAY_PREV, completeStr);
     updateDisplay(DISPLAY_CURR, resultStr);
 
