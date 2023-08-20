@@ -88,7 +88,7 @@ function compute() {
   let resultStr = ""
   if (isNaN(a) || isNaN(b)) return;
   if(op === "/" && b === 0) {
-    resultStr = "ERROR!"
+    resultStr = `(͡ ° ͜ʖ ͡ °)`
     updateDisplay(DISPLAY_CURR, resultStr)
     return
   };

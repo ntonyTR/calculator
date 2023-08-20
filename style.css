@@ -19,9 +19,9 @@ body {
 
 h1{
     font-family: 'Chango', sans-serif;
-    font-size: 50px;
-    letter-spacing: 1rem;
-    color: rgb(255, 247, 180);
+    font-size: 3rem;
+    letter-spacing: 0.5rem;
+    color: rgb(0, 0, 0);
 }
 
 #main_content {
@@ -35,44 +35,42 @@ button, #display_previous, #display_current {
 }
 
 #calculator {
-    background-color: rgb(0, 0, 0);
-    box-shadow: 0px 0px 40px rgba(255, 255, 255, 0.75);
-    border-radius: 30px;
-    padding: 20px 16px;
-    margin-top: 30px;
+    background-color: rgba(0, 0, 0, .9);
+    box-shadow: 0px 0px 40px rgba(255, 255, 255, 0.9);
+    border-radius: 1.5rem;
+    padding: 1rem;
+    margin-top: 3rem;
     gap: 8px;
     display: grid;
-    grid-template-columns: repeat(4, 100px);
-    grid-template-rows: minmax(120px, auto) repeat(5, 100px);
-
+    grid-template-columns: repeat(4, 4rem);
+    grid-template-rows: minmax(4rem, auto) repeat(5, 4rem);
 }
 
 #output {
     grid-column: 1 / -1;
     display: flex;
     align-items: flex-end;
-    justify-content: space-around;
     flex-direction: column;
     word-wrap: break-word;
     word-break: break-all;
-    padding: 0 10px;
 }
 
 #display_previous {
-    font-size: 3ch;
-    font-weight: normal;
-    height: 1em;
+    min-height: 2.5rem;
+    font-size: 2rem;
+    font-weight: lighter;
 }
 
 #display_current{
     font-weight: bolder;
-    font-size: 6ch;
+    min-height: 3.5rem;
+    font-size: 3rem;
 }
 
 button {
     border: none;
-    border-radius: 18px;
-    font-size: 36px;
+    border-radius: 1rem;
+    font-size: 2rem;
     cursor: pointer;
 }
 
@@ -98,6 +96,7 @@ button {
 }
 .action_buttons{
     background-color: rgb(199, 199, 199);
+    font-size: 1.5rem;
 }
 .action_buttons:hover{
     background-color: rgb(236, 236, 236);
@@ -108,17 +107,12 @@ button {
 }
 
 footer{
-    margin-top: 40px;
-}
-
-h4 {
-    font-size: 22px;
-    font-weight: 100;
+    margin-top: 2rem;
+    font-size: 1.5rem;
     color: black;
 }
 
 h4 a {
-    font-weight: 600;
-    text-decoration: underline;
+    font-weight: bold;
     color: rgb(0, 0, 0);
 }
